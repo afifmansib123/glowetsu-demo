@@ -531,35 +531,9 @@ const TourDetailView: React.FC = () => {
     setShowTimeSlotModal(true);
   };
 
-  const handleTimeSlotConfirm = (selections: BookingSelection[]) => {
-    if (!tour) return;
-
-    const currentPrice = tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price
-      ? tour.discountedPrice
-      : tour.price;
-
-    selections.forEach((selection) => {
-      const timeSlot = tour.timeSlots[selection.timeSlotIndex];
-      const bookingDetails = {
-        id: `${tour._id}-${selection.date}-${selection.timeSlotIndex}`,
-        name: `${tour.name} - ${selection.date} (${timeSlot.startTime}-${timeSlot.endTime})`,
-        price: currentPrice,
-        originalPrice: tour.price,
-        discountedPrice: tour.discountedPrice || null,
-        quantity: selection.quantity,
-        image: tour.images[0],
-        bookingDate: selection.date,
-        timeSlot: `${timeSlot.startTime}-${timeSlot.endTime}`,
-        tourId: tour._id,
-        currency: tour.currency,
-      };
-
-      addItem(bookingDetails as any);
-    });
-
-    toast.success(`${selections.length} booking(s) added to cart!`);
-    setShowTimeSlotModal(false);
-  };
+const handleTimeSlotConfirm  = () => {
+  alert("Coming Soon!");
+}
 
   const formatPrice = (price: number, currency: string) => {
     const priceLocale =

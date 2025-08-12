@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ShoppingCart, User, LogOut, LayoutDashboard, FolderOpen, Package } from 'lucide-react';
+import { Menu, X, User, LogOut, LayoutDashboard, FolderOpen, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
@@ -22,7 +21,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { user, signOut } = useAuth();
-  const { itemCount } = useCart();
   const { t } = useLanguage();
 
   const isAdminPage = pathname.startsWith('/admin');
@@ -84,19 +82,6 @@ export default function Navbar() {
             {/* Language Switcher - Only show on public pages */}
             {!isAdminPage && <LanguageSwitcher />}
             
-            {/* Cart - Only show on public pages */}
-            {!isAdminPage && (
-              <Link href="/cart" className="relative">
-                <Button variant="ghost" size="sm" className="relative">
-                  <ShoppingCart className="h-5 w-5" />
-                  {itemCount > 0 && (
-                    <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs">
-                      {itemCount}
-                    </Badge>
-                  )}
-                </Button>
-              </Link>
-            )}
 
             {/* User Menu */}
             {user ? (
@@ -216,17 +201,6 @@ export default function Navbar() {
               
               {/* Mobile Bottom Section */}
               <div className="pt-4 border-t space-y-2">
-                {/* Cart - Only on public pages */}
-                {!isAdminPage && (
-                  <Link
-                    href="/cart"
-                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <ShoppingCart className="h-5 w-5 mr-2" />
-                    {t('nav.cart')} {itemCount > 0 && `(${itemCount})`}
-                  </Link>
-                )}
 
                 {/* Language Switcher - Only on public pages, cleaner mobile design */}
                 {!isAdminPage && (
