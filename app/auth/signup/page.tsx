@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
@@ -17,7 +16,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState<'user' | 'admin'>('user');
+  const role = 'user'; // Always set to user
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
@@ -107,26 +106,6 @@ export default function SignUpPage() {
                   placeholder={t('auth.signup.emailPlaceholder')}
                   className="transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent hover:border-emerald-300"
                 />
-              </div>
-
-              <div className="space-y-3">
-                <Label htmlFor="role" className="text-sm font-medium text-gray-700">
-                  {t('auth.signup.accountType')}
-                </Label>
-                <RadioGroup value={role} onValueChange={(value) => setRole(value as 'user' | 'admin')} className="space-y-3">
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-200 cursor-pointer">
-                    <RadioGroupItem value="user" id="user" className="text-emerald-600" />
-                    <Label htmlFor="user" className="cursor-pointer font-medium text-gray-700">
-                      {t('auth.signup.user')}
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-200 cursor-pointer">
-                    <RadioGroupItem value="admin" id="admin" className="text-emerald-600" />
-                    <Label htmlFor="admin" className="cursor-pointer font-medium text-gray-700">
-                      {t('auth.signup.admin')}
-                    </Label>
-                  </div>
-                </RadioGroup>
               </div>
               
               <div className="space-y-2">
