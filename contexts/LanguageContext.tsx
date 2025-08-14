@@ -285,6 +285,15 @@ const translations = {
     "tourDetail.bookWithConfidence": "Book with confidence.",
     "tourDetail.securePayments": "Secure payments & 24/7 support.",
     "tourDetail.day": "Day",
+
+    "home.features.expertGuides": "Expert Local Guides",
+"home.features.expertGuidesDesc": "Our passionate local guides share insider knowledge and hidden gems",
+
+"home.features.premiumQuality": "Premium Quality",
+"home.features.premiumQualityDesc": "Carefully selected accommodations and transportation for your comfort",
+
+"home.features.uniqueDestinations": "Unique Destinations", 
+"home.features.uniqueDestinationsDesc": "From popular attractions to off-the-beaten-path adventures"
   },
   zh: {
     // Navigation

@@ -1,16 +1,39 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, MapPin, Calendar, Users, Star, Sparkles, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, Calendar, Users, Star, Sparkles, Zap, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Tour interface matching your API data structure
+interface Tour {
+  _id: string;
+  name: string;
+  description: string;
+  shortDescription?: string;
+  price: number;
+  discountedPrice?: number;
+  duration: number;
+  location: string;
+  category: {
+    _id: string;
+    name: string;
+  };
+  difficulty: string;
+  images: string[];
+  highlights: string[];
+  isFeatured: boolean;
+}
+
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [featuredTours, setFeaturedTours] = useState<Tour[]>([]);
+  const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
 
   const carouselImages = [
@@ -31,38 +54,42 @@ export default function HomePage() {
     }
   ];
 
-  const featuredTours = [
-    {
-      id: 1,
-      name: 'Tropical Paradise Escape',
-      location: 'Maldives',
-      duration: '7 Days',
-      price: 2499,
-      rating: 4.9,
-      image: 'https://images.pexels.com/photos/1287460/pexels-photo-1287460.jpeg?auto=compress&cs=tinysrgb&w=400',
-      description: 'Luxury overwater bungalows and pristine beaches'
-    },
-    {
-      id: 2,
-      name: 'Mountain Adventure Trek',
-      location: 'Nepal Himalayas',
-      duration: '14 Days',
-      price: 1899,
-      rating: 4.8,
-      image: 'https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=400',
-      description: 'Epic mountain trekking with experienced guides'
-    },
-    {
-      id: 3,
-      name: 'European Cultural Tour',
-      location: 'Italy & France',
-      duration: '10 Days',
-      price: 3299,
-      rating: 4.7,
-      image: 'https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg?auto=compress&cs=tinysrgb&w=400',
-      description: 'Explore historic cities and world-class cuisine'
+  // Fetch featured tours from API
+  useEffect(() => {
+    const fetchFeaturedTours = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/tour-packages?populate=true&isActive=true&isFeatured=true&limit=3');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch featured tours');
+        }
+        
+        const data = await response.json();
+        setFeaturedTours(data.tourPackages || []);
+      } catch (error) {
+        console.error('Error fetching featured tours:', error);
+        // Fallback to empty array or demo data if needed
+        setFeaturedTours([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedTours();
+  }, []);
+
+  // Helper function to get difficulty color
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty.toLowerCase()) {
+      case 'easy': return 'bg-green-100 text-green-800 border-green-200';
+      case 'moderate': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'challenging':
+      case 'hard': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'extreme': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
-  ];
+  };
 
   // Animation variants
   const containerVariants = {
@@ -393,7 +420,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
             >
-              {t('home.featured.title')}
+              {t('home.featured.title') || 'Featured Tours'}
             </motion.h2>
             <motion.p 
               className="text-xl text-gray-600"
@@ -402,108 +429,193 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              {t('home.featured.subtitle')}
+              {t('home.featured.subtitle') || 'Discover our handpicked premium experiences'}
             </motion.p>
           </motion.div>
           
-          <motion.div 
-            className="grid md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            {featuredTours.map((tour, index) => (
-              <motion.div
-                key={tour.id}
-                variants={cardVariants as any}
-                whileHover="hover"
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="overflow-hidden hover:shadow-2xl border-0 bg-white/80 backdrop-blur-sm h-full">
-                  <motion.div className="relative h-48 shimmer-effect group">
-                    <motion.img
-                      src={tour.image}
-                      alt={tour.name}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <motion.div 
-                      className="absolute top-4 right-4 glass-effect px-3 py-2 rounded-full text-sm font-bold text-white shadow-lg"
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
-                    >
-                      ${tour.price}
-                    </motion.div>
-                    <motion.div 
-                      className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100"
-                      initial={{ y: 20 }}
-                      whileHover={{ y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="text-white text-sm font-medium">Starting from</div>
-                    </motion.div>
-                  </motion.div>
-                  <CardContent className="p-6 relative">
-                    <motion.h3 
-                      className="text-xl font-bold mb-2 text-gray-900"
-                      whileHover={{ color: "#2563eb" }}
-                    >
-                      {tour.name}
-                    </motion.h3>
-                    <motion.div 
-                      className="flex items-center text-gray-600 mb-2"
-                      whileHover={{ color: "#3b82f6", x: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <MapPin className="h-4 w-4 mr-1" />
-                      <span className="text-sm">{tour.location}</span>
-                    </motion.div>
-                    <motion.div 
-                      className="flex items-center text-gray-600 mb-2"
-                      whileHover={{ color: "#10b981", x: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span className="text-sm">{tour.duration}</span>
-                    </motion.div>
-                    <div className="flex items-center mb-3">
-                      <motion.div
-                        animate={{ rotate: [0, 15, -15, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                      >
-                        <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      </motion.div>
-                      <span className="text-sm text-gray-600 ml-1">{tour.rating}</span>
+          {loading ? (
+            // Loading skeleton
+            <div className="grid md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div className="h-48 bg-gray-200"></div>
+                    <div className="p-6 space-y-4">
+                      <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-10 bg-gray-200 rounded"></div>
                     </div>
-                    <p className="text-gray-600 text-sm mb-4">{tour.description}</p>
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Button 
-                        asChild 
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full shadow-lg hover:shadow-xl"
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : featuredTours.length > 0 ? (
+            <motion.div 
+              className="grid md:grid-cols-3 gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {featuredTours.map((tour, index) => (
+                <motion.div
+                  key={tour._id}
+                  variants={cardVariants as any}
+                  whileHover="hover"
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="overflow-hidden hover:shadow-2xl border-0 bg-white/80 backdrop-blur-sm h-full">
+                    <motion.div className="relative h-48 shimmer-effect group">
+                      <motion.img
+                        src={tour.images[0] || '/placeholder.png'}
+                        alt={tour.name}
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Category Badge */}
+                      <Badge className="absolute top-4 left-4 bg-blue-600 hover:bg-blue-700 shadow-lg">
+                        {tour.category?.name || 'Uncategorized'}
+                      </Badge>
+                      
+                      {/* Price */}
+                      <motion.div 
+                        className="absolute top-4 right-4 glass-effect px-3 py-2 rounded-full text-sm font-bold text-white shadow-lg"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
                       >
-                        <Link href={`/tours/${tour.id}`} className="inline-flex items-center justify-center gap-2">
-                          {t('tours.viewDetails')}
-                          <motion.div
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <ChevronRight className="h-4 w-4" />
-                          </motion.div>
-                        </Link>
-                      </Button>
+                        {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
+                          <div className="text-center">
+                            <div className="text-xs line-through opacity-75">¥{tour.price.toLocaleString()}</div>
+                            <div className="text-sm font-bold text-yellow-300">¥{tour.discountedPrice.toLocaleString()}</div>
+                          </div>
+                        ) : (
+                          `¥${tour.price.toLocaleString()}`
+                        )}
+                      </motion.div>
+                      
+                      <motion.div 
+                        className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100"
+                        initial={{ y: 20 }}
+                        whileHover={{ y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="text-white text-sm font-medium">Featured Tour</div>
+                      </motion.div>
                     </motion.div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+                    
+                    <CardContent className="p-6 relative">
+                      <motion.h3 
+                        className="text-xl font-bold mb-2 text-gray-900 line-clamp-1"
+                        whileHover={{ color: "#2563eb" }}
+                      >
+                        {tour.name}
+                      </motion.h3>
+                      
+                      {/* Location and Duration */}
+                      <div className="flex items-center gap-4 text-gray-600 mb-3">
+                        <motion.div 
+                          className="flex items-center"
+                          whileHover={{ color: "#3b82f6", x: 5 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <MapPin className="h-4 w-4 mr-1" />
+                          <span className="text-sm">{tour.location}</span>
+                        </motion.div>
+                        <motion.div 
+                          className="flex items-center"
+                          whileHover={{ color: "#10b981", x: 5 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <Clock className="h-4 w-4 mr-1" />
+                          <span className="text-sm">{tour.duration} {tour.duration === 1 ? 'Day' : 'Days'}</span>
+                        </motion.div>
+                      </div>
+                      
+                      {/* Difficulty Badge */}
+                      <div className="mb-3">
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs font-medium ${getDifficultyColor(tour.difficulty)}`}
+                        >
+                          {tour.difficulty}
+                        </Badge>
+                      </div>
+                      
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        {tour.shortDescription || tour.description}
+                      </p>
+                      
+                      {/* Highlights */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {tour.highlights.slice(0, 2).map((highlight, highlightIndex) => (
+                          <Badge 
+                            key={highlightIndex} 
+                            variant="secondary" 
+                            className="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+                          >
+                            {highlight}
+                          </Badge>
+                        ))}
+                        {tour.highlights.length > 2 && (
+                          <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
+                            +{tour.highlights.length - 2} more
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Button 
+                          asChild 
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full shadow-lg hover:shadow-xl"
+                        >
+                          <Link href={`/tours/${tour._id}`} className="inline-flex items-center justify-center gap-2">
+                            {t('tours.viewDetails') || 'View Details'}
+                            <motion.div
+                              animate={{ x: [0, 5, 0] }}
+                              transition={{ duration: 1.5, repeat: Infinity }}
+                            >
+                              <ChevronRight className="h-4 w-4" />
+                            </motion.div>
+                          </Link>
+                        </Button>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            // No featured tours message
+            <motion.div 
+              className="text-center py-12"
+              variants={itemVariants as any}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-8 max-w-md mx-auto">
+                <Sparkles className="h-12 w-12 text-blue-500 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No Featured Tours Yet</h3>
+                <p className="text-gray-600 mb-6">
+                  We're curating amazing experiences for you. Check back soon!
+                </p>
+                <Button 
+                  asChild 
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  <Link href="/tours">Browse All Tours</Link>
+                </Button>
+              </div>
+            </motion.div>
+          )}
         </div>
       </motion.section>
 
@@ -538,52 +650,52 @@ export default function HomePage() {
               >
                 {t('home.company.desc')}
               </motion.p>
-<div className="space-y-6">
-  {[
-    { 
-      icon: Users, 
-      title: t("home.features.expertGuides"), 
-      desc: t("home.features.expertGuidesDesc") 
-    },
-    { 
-      icon: Star, 
-      title: t("home.features.premiumQuality"), 
-      desc: t("home.features.premiumQualityDesc") 
-    },
-    { 
-      icon: MapPin, 
-      title: t("home.features.uniqueDestinations"), 
-      desc: t("home.features.uniqueDestinationsDesc") 
-    }
-  ].map((item, index) => (
-    <motion.div 
-      key={index}
-      className="flex items-start group"
-      initial={{ x: -50, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.3 + index * 0.1 }}
-      whileHover={{ x: 10 }}
-    >
-      <motion.div 
-        className="glass-effect p-2 rounded-full mr-4"
-        whileHover={{ scale: 1.2, rotate: 10 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        <item.icon className="h-6 w-6 text-blue-600" />
-      </motion.div>
-      <div>
-        <motion.h3 
-          className="font-semibold text-gray-900"
-          whileHover={{ color: "#2563eb" }}
-        >
-          {item.title}
-        </motion.h3>
-        <p className="text-gray-600">{item.desc}</p>
-      </div>
-    </motion.div>
-  ))}
-</div>
+              <div className="space-y-6">
+                {[
+                  { 
+                    icon: Users, 
+                    title: t("home.features.expertGuides"), 
+                    desc: t("home.features.expertGuidesDesc") 
+                  },
+                  { 
+                    icon: Star, 
+                    title: t("home.features.premiumQuality"), 
+                    desc: t("home.features.premiumQualityDesc") 
+                  },
+                  { 
+                    icon: MapPin, 
+                    title: t("home.features.uniqueDestinations"), 
+                    desc: t("home.features.uniqueDestinationsDesc") 
+                  }
+                ].map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    className="flex items-start group"
+                    initial={{ x: -50, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    whileHover={{ x: 10 }}
+                  >
+                    <motion.div 
+                      className="glass-effect p-2 rounded-full mr-4"
+                      whileHover={{ scale: 1.2, rotate: 10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <item.icon className="h-6 w-6 text-blue-600" />
+                    </motion.div>
+                    <div>
+                      <motion.h3 
+                        className="font-semibold text-gray-900"
+                        whileHover={{ color: "#2563eb" }}
+                      >
+                        {item.title}
+                      </motion.h3>
+                      <p className="text-gray-600">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
             <motion.div 
               className="relative"
