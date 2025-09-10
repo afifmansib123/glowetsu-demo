@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -79,4 +80,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+.classy-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.classy-sans {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
 }

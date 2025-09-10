@@ -29,22 +29,22 @@ export default function AboutPage() {
     }
   ];
 
-  return (
-    <div className="min-h-screen">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Section */}
-      <section className="relative h-[60vh] bg-gray-900">
+      <section className="relative h-[60vh] bg-black">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: 'url(https://images.pexels.com/photos/1010657/pexels-photo-1010657.jpeg?auto=compress&cs=tinysrgb&w=1200)'
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-50" />
+          <div className="absolute inset-0 bg-black bg-opacity-70" />
         </div>
         <div className="relative h-full flex items-center justify-center text-center text-white">
           <div className="max-w-4xl px-4">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">About glowetsu</h1>
-            <p className="text-xl md:text-2xl">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">About glowetsu</h1>
+            <p className="text-xl md:text-2xl text-gray-200">
               Creating unforgettable memories through authentic travel experiences since 2008
             </p>
           </div>
@@ -52,13 +52,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <div key={index}>
+                <div key={index} className="transform hover:scale-105 transition-transform duration-200">
                   <IconComponent className="h-12 w-12 mx-auto mb-4" />
                   <div className="text-3xl font-bold mb-2">{stat.value}</div>
                   <div className="text-lg">{stat.label}</div>
@@ -74,10 +74,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-600">
+              <h2 className="text-4xl font-bold text-white mb-6">Our Story</h2>
+              <div className="space-y-4 text-gray-300">
                 <p>
-                  Founded in 2008 by a group of passionate travelers,glowetsu was born 
+                  Founded in 2008 by a group of passionate travelers, glowetsu was born 
                   from a simple belief: travel should transform lives, not just provide vacations.
                 </p>
                 <p>
@@ -96,7 +96,7 @@ export default function AboutPage() {
               <img
                 src="https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt="Travel adventure"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -104,34 +104,34 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Values */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-800/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Mission & Values</h2>
-            <p className="text-xl text-gray-600">What drives us every day</p>
+            <h2 className="text-4xl font-bold text-white mb-4">Our Mission & Values</h2>
+            <p className="text-xl text-gray-300">What drives us every day</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <Globe className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4">Authentic Experiences</h3>
-              <p className="text-gray-600">
+            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
+              <Globe className="h-16 w-16 text-orange-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-4 text-white">Authentic Experiences</h3>
+              <p className="text-gray-300">
                 We believe in showcasing the real essence of each destination through 
                 genuine cultural exchanges and off-the-beaten-path adventures.
               </p>
             </div>
-            <div className="text-center">
-              <Heart className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4">Sustainable Tourism</h3>
-              <p className="text-gray-600">
+            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
+              <Heart className="h-16 w-16 text-orange-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-4 text-white">Sustainable Tourism</h3>
+              <p className="text-gray-300">
                 Our tours are designed to benefit local communities while preserving 
                 the natural and cultural heritage of destinations for future generations.
               </p>
             </div>
-            <div className="text-center">
-              <Award className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4">Excellence in Service</h3>
-              <p className="text-gray-600">
+            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
+              <Award className="h-16 w-16 text-orange-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-4 text-white">Excellence in Service</h3>
+              <p className="text-gray-300">
                 From planning to execution, we maintain the highest standards of service 
                 to ensure every moment of your journey exceeds expectations.
               </p>
@@ -144,23 +144,23 @@ export default function AboutPage() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
-            <p className="text-xl text-gray-600">The passionate people behind your adventures</p>
+            <h2 className="text-4xl font-bold text-white mb-4">Meet Our Team</h2>
+            <p className="text-xl text-gray-300">The passionate people behind your adventures</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {team.map((member, index) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
                 <div className="relative w-48 h-48 mx-auto mb-4">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover rounded-full"
+                    className="w-full h-full object-cover rounded-full border-4 border-orange-500/30"
                   />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <p className="text-blue-600 font-medium mb-3">{member.role}</p>
-                <p className="text-gray-600">{member.description}</p>
+                <h3 className="text-xl font-bold text-white mb-2">{member.name}</h3>
+                <p className="text-orange-400 font-medium mb-3">{member.role}</p>
+                <p className="text-gray-300">{member.description}</p>
               </div>
             ))}
           </div>
@@ -168,7 +168,7 @@ export default function AboutPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-4xl font-bold mb-6">Ready to Start Your Adventure?</h2>
           <p className="text-xl mb-8">
@@ -177,13 +177,13 @@ export default function AboutPage() {
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
             <a
               href="/tours"
-              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-lg"
             >
               Browse Tours
             </a>
             <a
               href="/contact"
-              className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+              className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-all duration-200 hover:scale-105 shadow-lg"
             >
               Contact Us
             </a>

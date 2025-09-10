@@ -171,16 +171,16 @@ export default function ToursPage() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div className="bg-gradient-to-r from-gray-900 to-black text-white">
         <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="text-center animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Discover Amazing Tours
             </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Explore breathtaking destinations and create unforgettable memories with our curated travel experiences
             </p>
           </div>
@@ -189,35 +189,35 @@ export default function ToursPage() {
 
       {/* Filters */}
       <div className="max-w-7xl mx-auto px-4 -mt-8 relative z-10">
-        <div className="bg-white rounded-xl shadow-xl backdrop-blur-sm bg-white/95 p-6 mb-8 animate-in fade-in-0 slide-in-from-bottom-2 duration-500">
+        <div className="bg-black/80 backdrop-blur-sm border border-gray-600/30 rounded-xl shadow-xl p-6 mb-8 animate-in fade-in-0 slide-in-from-bottom-2 duration-500">
           <div className="grid md:grid-cols-3 gap-4">
             <div className="relative group">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-hover:text-blue-500 transition-colors" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-hover:text-orange-500 transition-colors" />
               <Input
                 placeholder={t("tours.search") || "Search tours, locations..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-11 h-12 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                className="pl-11 h-12 bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
               />
             </div>
             <Select
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="h-12 border-gray-200 focus:ring-2 focus:ring-blue-500">
+              <SelectTrigger className="h-12 bg-gray-800 border-gray-600 text-white focus:ring-2 focus:ring-orange-500">
                 <Filter className="h-4 w-4 mr-2 text-gray-400" />
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
+              <SelectContent className="bg-gray-800 border-gray-600">
+                <SelectItem value="all" className="text-white hover:bg-gray-700">All Categories</SelectItem>
                 {categories.map((category) => (
-                  <SelectItem key={category._id} value={category._id}>
+                  <SelectItem key={category._id} value={category._id} className="text-white hover:bg-gray-700">
                     {category.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            <div className="flex items-center justify-between text-sm text-gray-600 px-4 py-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between text-sm text-gray-300 px-4 py-3 bg-gray-800 rounded-lg border border-gray-600">
               <span className="font-medium">{filteredTours.length} tours found</span>
               <Users className="h-4 w-4" />
             </div>
@@ -229,7 +229,7 @@ export default function ToursPage() {
           {filteredTours.map((tour, index) => (
             <Card
               key={tour._id}
-              className="group overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col bg-white border-0 shadow-lg animate-in fade-in-0 slide-in-from-bottom-4"
+              className="group overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col bg-black/40 backdrop-blur-md border border-gray-600/30 shadow-lg animate-in fade-in-0 slide-in-from-bottom-4 hover:border-orange-300/50"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="relative h-56 overflow-hidden">
@@ -244,38 +244,38 @@ export default function ToursPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 
                 {/* Category Badge */}
-                <Badge className="absolute top-4 left-4 bg-blue-600 hover:bg-blue-700 shadow-lg">
+                <Badge className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-orange-300 border border-orange-300/30 shadow-lg">
                   {tour.category?.name || "Uncategorized"}
                 </Badge>
                 
                 {/* Price */}
-                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg">
-  {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
-    <div className="text-right">
-      <div className="text-xs text-gray-500 line-through leading-none">
-        ¥{tour.price.toLocaleString()}
-      </div>
-      <div className="text-lg font-bold text-red-600 leading-none">
-        ¥{tour.discountedPrice.toLocaleString()}
-      </div>
-    </div>
-  ) : (
-    <span className="text-lg font-bold text-gray-900">
-      ¥{tour.price.toLocaleString()}
-    </span>
-  )}
-</div>
+                <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg">
+                  {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
+                    <div className="text-right">
+                      <div className="text-xs text-gray-400 line-through leading-none">
+                        ¥{tour.price.toLocaleString()}
+                      </div>
+                      <div className="text-lg font-bold text-orange-300 leading-none">
+                        ¥{tour.discountedPrice.toLocaleString()}
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-lg font-bold text-white">
+                      ¥{tour.price.toLocaleString()}
+                    </span>
+                  )}
+                </div>
               </div>
               
               <CardContent className="p-6 flex-grow flex flex-col">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors line-clamp-1">
+                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors line-clamp-1">
                   {tour.name}
                 </h3>
                 
                 {/* Location and Duration */}
-                <div className="flex items-center gap-4 text-gray-600 mb-3">
+                <div className="flex items-center gap-4 text-gray-400 mb-3">
                   <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-1 text-blue-500" />
+                    <MapPin className="h-4 w-4 mr-1 text-orange-500" />
                     <span className="text-sm font-medium">{tour.location}</span>
                   </div>
                   <div className="flex items-center">
@@ -296,7 +296,7 @@ export default function ToursPage() {
                   </Badge>
                 </div>
                 
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow leading-relaxed">
+                <p className="text-gray-300 text-sm mb-4 line-clamp-2 flex-grow leading-relaxed">
                   {tour.shortDescription || tour.description}
                 </p>
 
@@ -306,13 +306,13 @@ export default function ToursPage() {
                     <Badge 
                       key={index} 
                       variant="secondary" 
-                      className="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+                      className="text-xs bg-gray-700 text-gray-200 hover:bg-gray-600 transition-colors"
                     >
                       {highlight}
                     </Badge>
                   ))}
                   {tour.highlights.length > 3 && (
-                    <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
+                    <Badge variant="secondary" className="text-xs bg-gray-700 text-gray-400">
                       +{tour.highlights.length - 3} more
                     </Badge>
                   )}
@@ -323,7 +323,7 @@ export default function ToursPage() {
                   <Button 
                     asChild 
                     variant="outline" 
-                    className="flex-1 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
+                    className="flex-1 border-orange-300/30 text-white hover:bg-orange-600/20 hover:border-orange-300 hover:text-white transition-all duration-200 bg-transparent"
                   >
                     <Link href={`/tours/${tour._id}`}>
                       {t("tours.viewDetails") || "View Details"}
@@ -338,12 +338,12 @@ export default function ToursPage() {
         {/* No Results Message */}
         {filteredTours.length === 0 && !loading && (
           <div className="text-center py-16 animate-in fade-in-0 duration-500">
-            <div className="bg-white rounded-xl shadow-lg p-12 max-w-md mx-auto">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="h-8 w-8 text-blue-600" />
+            <div className="bg-black/40 backdrop-blur-md border border-gray-600/30 rounded-xl shadow-lg p-12 max-w-md mx-auto">
+              <div className="w-16 h-16 bg-orange-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="h-8 w-8 text-orange-400" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No tours found</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-xl font-semibold text-white mb-2">No tours found</h3>
+              <p className="text-gray-300 mb-6">
                 Try adjusting your search criteria or browse all available tours.
               </p>
               <Button 
@@ -351,7 +351,7 @@ export default function ToursPage() {
                   setSearchTerm("");
                   setSelectedCategory("all");
                 }}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800"
               >
                 Clear Filters
               </Button>

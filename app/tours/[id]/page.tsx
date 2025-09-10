@@ -623,20 +623,19 @@ const handleTimeSlotConfirm  = () => {
 
   const savings = calculateSavings();
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Enhanced Header */}
-      <div className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-40 border-b border-gray-100">
+      <div className="bg-black/80 backdrop-blur-sm shadow-sm sticky top-0 z-40 border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
               onClick={() => router.push("/tours")}
-              className="inline-flex items-center text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-all"
+              className="inline-flex items-center text-gray-300 hover:text-white hover:bg-gray-800 transition-all"
             >
               <ArrowLeft className="w-5 h-5 mr-2" /> {t("tourDetail.back")}
             </Button>
-            
           </div>
         </div>
       </div>
@@ -645,7 +644,7 @@ const handleTimeSlotConfirm  = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Enhanced Image Gallery */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
+            <div className="bg-black/40 backdrop-blur-md border border-gray-600/30 rounded-2xl shadow-lg overflow-hidden animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
               <div className="relative h-[350px] sm:h-[450px] md:h-[550px] w-full group">
                 {tour.images && tour.images.length > 0 ? (
                   <>
@@ -662,7 +661,7 @@ const handleTimeSlotConfirm  = () => {
                         className="group-hover:scale-105 transition-transform duration-500"
                       />
                     </button>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     
                     {tour.images.length > 1 && (
                       <>
@@ -673,7 +672,7 @@ const handleTimeSlotConfirm  = () => {
                               (prev) => (prev - 1 + tour.images.length) % tour.images.length
                             );
                           }}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
                         >
                           <ChevronLeft className="w-5 h-5" />
                         </button>
@@ -684,7 +683,7 @@ const handleTimeSlotConfirm  = () => {
                               (prev) => (prev + 1) % tour.images.length
                             );
                           }}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
                         >
                           <ChevronRight className="w-5 h-5" />
                         </button>
@@ -692,10 +691,10 @@ const handleTimeSlotConfirm  = () => {
                     )}
                   </>
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
                     <div className="text-center">
-                      <Mountain className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-500 font-medium">No Image Available</p>
+                      <Mountain className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+                      <p className="text-gray-400 font-medium">No Image Available</p>
                     </div>
                   </div>
                 )}
@@ -711,8 +710,8 @@ const handleTimeSlotConfirm  = () => {
                         onClick={() => setLightboxStartIndex(index)}
                         className={`flex-shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
                           index === lightboxStartIndex
-                            ? "border-blue-500 scale-105 shadow-lg"
-                            : "border-transparent hover:border-gray-300 hover:scale-105"
+                            ? "border-orange-500 scale-105 shadow-lg"
+                            : "border-transparent hover:border-gray-500 hover:scale-105"
                         }`}
                       >
                         <Image
@@ -730,11 +729,11 @@ const handleTimeSlotConfirm  = () => {
             </div>
 
             {/* Enhanced Tour Details */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-150">
+            <div className="bg-black/40 backdrop-blur-md border border-gray-600/30 rounded-2xl shadow-lg p-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-150">
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <Badge className="bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-200">
+                    <Badge className="bg-black/80 backdrop-blur-sm text-orange-300 border border-orange-300/30 hover:bg-orange-600/20">
                       {tour.category.name}
                     </Badge>
                     {tour.isFeatured && (
@@ -743,69 +742,69 @@ const handleTimeSlotConfirm  = () => {
                       </Badge>
                     )}
                   </div>
-                  <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                  <h1 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
                     {tour.name}
                   </h1>
-                  <div className="flex items-center text-gray-600 mb-4">
-                    <MapPin className="w-5 h-5 mr-2 text-blue-500" />
+                  <div className="flex items-center text-gray-300 mb-4">
+                    <MapPin className="w-5 h-5 mr-2 text-orange-500" />
                     <span className="text-lg font-medium">{tour.location}</span>
                   </div>
                 </div>
 
                 {/* Enhanced Price Display */}
-                <div className="text-center lg:text-right bg-gradient-to-br from-blue-50 to-indigo-50 p-4 lg:p-6 rounded-2xl border border-blue-100 lg:flex-shrink-0">
+                <div className="text-center lg:text-right bg-gray-800/50 backdrop-blur-sm p-4 lg:p-6 rounded-2xl border border-gray-600/30 lg:flex-shrink-0">
                   {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
                     <div className="space-y-2">
                       <div className="flex items-center justify-end gap-2">
-                        <span className="text-lg text-gray-500 line-through">
+                        <span className="text-lg text-gray-400 line-through">
                           {formatPrice(tour.price, tour.currency)}
                         </span>
                         <Badge variant="destructive" className="text-xs">
                           -{savings?.percentage}%
                         </Badge>
                       </div>
-                      <div className="text-3xl font-bold text-red-600">
+                      <div className="text-3xl font-bold text-orange-400">
                         {formatPrice(tour.discountedPrice, tour.currency)}
                       </div>
-                      <div className="text-sm text-green-600 font-semibold bg-green-100 px-3 py-1 rounded-full">
+                      <div className="text-sm text-green-400 font-semibold bg-green-900/30 px-3 py-1 rounded-full border border-green-400/30">
                         Save {formatPrice(savings?.amount || 0, tour.currency)}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-4xl font-bold text-blue-600">
+                    <div className="text-4xl font-bold text-orange-400">
                       {formatPrice(tour.price, tour.currency)}
                     </div>
                   )}
-                  <div className="text-sm text-gray-600 mt-2 font-medium">per person</div>
+                  <div className="text-sm text-gray-400 mt-2 font-medium">per person</div>
                 </div>
               </div>
 
               {/* Enhanced Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-                <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
-                  <CalendarDays className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
+                <div className="text-center p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-600/30">
+                  <CalendarDays className="w-8 h-8 text-orange-500 mx-auto mb-3" />
+                  <div className="text-3xl font-bold text-white mb-1">
                     {tour.duration}
                   </div>
-                  <div className="text-sm text-gray-600 font-medium">
+                  <div className="text-sm text-gray-400 font-medium">
                     {tour.duration === 1 ? t("tourDetail.day") : t("tourDetail.days")}
                   </div>
                 </div>
-                <div className="text-center p-6 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border border-emerald-200">
-                  <Users className="w-8 h-8 text-emerald-600 mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
+                <div className="text-center p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-600/30">
+                  <Users className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
+                  <div className="text-3xl font-bold text-white mb-1">
                     {tour.maxGroupSize}
                   </div>
-                  <div className="text-sm text-gray-600 font-medium">
+                  <div className="text-sm text-gray-400 font-medium">
                     {t("tourDetail.maxGroup")}
                   </div>
                 </div>
-                <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
-                  <Mountain className="w-8 h-8 text-orange-600 mx-auto mb-3" />
+                <div className="text-center p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-600/30">
+                  <Mountain className="w-8 h-8 text-orange-500 mx-auto mb-3" />
                   <div className={`px-4 py-2 rounded-full text-sm font-bold capitalize ${getDifficultyClass(tour.difficulty)} mx-auto inline-block`}>
                     {tour.difficulty}
                   </div>
-                  <div className="text-sm text-gray-600 font-medium mt-2">
+                  <div className="text-sm text-gray-400 font-medium mt-2">
                     {t("tourDetail.difficulty")}
                   </div>
                 </div>
@@ -813,17 +812,17 @@ const handleTimeSlotConfirm  = () => {
 
               {/* Enhanced Tabs */}
               <Tabs defaultValue="schedule" className="w-full">
-                <TabsList className="grid w-full grid-cols-4 bg-gray-100 p-1 rounded-xl">
-                  <TabsTrigger value="schedule" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-                    Schedule
-                  </TabsTrigger>
-                  <TabsTrigger value="description" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsList className="grid w-full grid-cols-4 bg-gray-800 p-1 rounded-xl border border-gray-600/30">
+                                  <TabsTrigger value="description" className="rounded-lg data-[state=active]:bg-gray-700 data-[state=active]:text-orange-300 text-gray-300">
                     {t("tourDetail.about")}
                   </TabsTrigger>
-                  <TabsTrigger value="itinerary" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <TabsTrigger value="schedule" className="rounded-lg data-[state=active]:bg-gray-700 data-[state=active]:text-orange-300 text-gray-300">
+                    Schedule
+                  </TabsTrigger>
+                  <TabsTrigger value="itinerary" className="rounded-lg data-[state=active]:bg-gray-700 data-[state=active]:text-orange-300 text-gray-300">
                     {t("tourDetail.itinerary")}
                   </TabsTrigger>
-                  <TabsTrigger value="details" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <TabsTrigger value="details" className="rounded-lg data-[state=active]:bg-gray-700 data-[state=active]:text-orange-300 text-gray-300">
                     {t("tourDetail.whatsIncluded")}
                   </TabsTrigger>
                 </TabsList>
@@ -831,12 +830,12 @@ const handleTimeSlotConfirm  = () => {
                 {/* Schedule Tab */}
                 <TabsContent value="schedule" className="mt-8">
                   <div className="space-y-6">
-                    <h4 className="font-bold text-2xl text-gray-900">Schedule & Availability</h4>
+                    <h4 className="font-bold text-2xl text-white">Schedule & Availability</h4>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-300 transition-colors">
-                        <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
-                          <CalendarIcon className="w-6 h-6 mr-3 text-blue-500" />
+                      <div className="p-6 border-2 border-gray-600/30 bg-gray-800/30 rounded-xl hover:border-orange-300/50 transition-colors">
+                        <h5 className="font-semibold text-white mb-4 flex items-center">
+                          <CalendarIcon className="w-6 h-6 mr-3 text-orange-500" />
                           Operating Days
                         </h5>
                         <div className="flex flex-wrap gap-2">
@@ -844,7 +843,7 @@ const handleTimeSlotConfirm  = () => {
                             <Badge
                               key={day}
                               variant="secondary"
-                              className="capitalize bg-blue-100 text-blue-800 border-blue-200 px-3 py-1"
+                              className="capitalize bg-gray-700 text-gray-200 border-gray-600 px-3 py-1"
                             >
                               {day}
                             </Badge>
@@ -852,8 +851,8 @@ const handleTimeSlotConfirm  = () => {
                         </div>
                       </div>
 
-                      <div className="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-300 transition-colors">
-                        <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                      <div className="p-6 border-2 border-gray-600/30 bg-gray-800/30 rounded-xl hover:border-orange-300/50 transition-colors">
+                        <h5 className="font-semibold text-white mb-4 flex items-center">
                           <Clock className="w-6 h-6 mr-3 text-emerald-500" />
                           Available Times
                         </h5>
@@ -863,12 +862,12 @@ const handleTimeSlotConfirm  = () => {
                             .map((timeSlot, index) => (
                               <div
                                 key={index}
-                                className="flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                                className="flex justify-between items-center p-3 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-colors"
                               >
-                                <span className="font-medium text-gray-900">
+                                <span className="font-medium text-white">
                                   {timeSlot.startTime} - {timeSlot.endTime}
                                 </span>
-                                <span className="text-sm text-gray-600 bg-white px-2 py-1 rounded">
+                                <span className="text-sm text-gray-300 bg-gray-800 px-2 py-1 rounded">
                                   Max {timeSlot.maxCapacity}
                                 </span>
                               </div>
@@ -877,14 +876,14 @@ const handleTimeSlotConfirm  = () => {
                       </div>
                     </div>
 
-                    <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+                    <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-600/30">
                       <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                           <span className="text-white text-sm font-bold">!</span>
                         </div>
                         <div>
-                          <h6 className="font-semibold text-blue-900 mb-2">Booking Policy</h6>
-                          <p className="text-sm text-blue-800 leading-relaxed">
+                          <h6 className="font-semibold text-orange-300 mb-2">Booking Policy</h6>
+                          <p className="text-sm text-gray-300 leading-relaxed">
                             Book at least <strong>{tour.advanceBookingDays} day(s)</strong> in advance. 
                             Times shown are for <strong>{tour.timeSlotType}</strong> slots. 
                             All bookings are subject to availability and weather conditions.
@@ -898,32 +897,32 @@ const handleTimeSlotConfirm  = () => {
                 {/* Description Tab */}
                 <TabsContent value="description" className="mt-8">
                   <div className="space-y-8">
-                    <h4 className="font-bold text-2xl text-gray-900">{t("tourDetail.about")}</h4>
+                    <h4 className="font-bold text-2xl text-white">{t("tourDetail.about")}</h4>
 
                     {tour.shortDescription && (
-                      <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border-l-4 border-blue-500">
-                        <h5 className="font-semibold text-blue-900 mb-3 flex items-center">
+                      <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border-l-4 border-orange-500">
+                        <h5 className="font-semibold text-orange-300 mb-3 flex items-center">
                           <Star className="w-5 h-5 mr-2" />
                           Quick Overview
                         </h5>
-                        <p className="text-blue-800 leading-relaxed text-lg">{tour.shortDescription}</p>
+                        <p className="text-gray-300 leading-relaxed text-lg">{tour.shortDescription}</p>
                       </div>
                     )}
 
                     <div className="prose prose-lg max-w-none">
-                      <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap">
+                      <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-wrap">
                         {tour.description || "No detailed description available for this tour."}
                       </p>
                     </div>
 
                     {tour.highlights && tour.highlights.length > 0 && (
                       <div className="space-y-4">
-                        <h5 className="font-bold text-xl text-gray-900">Tour Highlights</h5>
+                        <h5 className="font-bold text-xl text-white">Tour Highlights</h5>
                         <div className="grid gap-4">
                           {tour.highlights.map((highlight, index) => (
-                            <div key={index} className="flex items-start p-4 bg-yellow-50 rounded-xl border border-yellow-200 hover:bg-yellow-100 transition-colors">
-                              <Star className="w-6 h-6 text-yellow-500 mr-4 mt-0.5 flex-shrink-0" />
-                              <span className="text-gray-800 leading-relaxed font-medium">{highlight}</span>
+                            <div key={index} className="flex items-start p-4 bg-yellow-900/20 rounded-xl border border-yellow-600/30 hover:bg-yellow-900/30 transition-colors">
+                              <Star className="w-6 h-6 text-yellow-400 mr-4 mt-0.5 flex-shrink-0" />
+                              <span className="text-gray-200 leading-relaxed font-medium">{highlight}</span>
                             </div>
                           ))}
                         </div>
@@ -936,24 +935,24 @@ const handleTimeSlotConfirm  = () => {
                 <TabsContent value="itinerary" className="mt-8">
                   {tour.itinerary && tour.itinerary.length > 0 ? (
                     <div className="space-y-8">
-                      <h4 className="font-bold text-2xl text-gray-900">{t("tourDetail.itinerary")}</h4>
+                      <h4 className="font-bold text-2xl text-white">{t("tourDetail.itinerary")}</h4>
                       <div className="space-y-8">
                         {tour.itinerary.map((day, index) => (
                           <div key={day.day} className="flex gap-6 group">
                             <div className="flex flex-col items-center">
-                              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                                 <span className="text-sm">{t("tourDetail.day")} {day.day}</span>
                               </div>
                               {index < tour.itinerary.length - 1 && (
-                                <div className="w-0.5 h-16 bg-gradient-to-b from-blue-300 to-gray-200 mt-4"></div>
+                                <div className="w-0.5 h-16 bg-gradient-to-b from-orange-300 to-gray-600 mt-4"></div>
                               )}
                             </div>
                             <div className="flex-1 pb-8">
-                              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                                <h5 className="font-bold text-xl text-gray-900 mb-3">
+                              <div className="bg-gray-800/40 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-gray-600/30 hover:shadow-md transition-shadow">
+                                <h5 className="font-bold text-xl text-white mb-3">
                                   {day.title}
                                 </h5>
-                                <p className="text-gray-700 leading-relaxed">
+                                <p className="text-gray-300 leading-relaxed">
                                   {day.description}
                                 </p>
                               </div>
@@ -964,23 +963,23 @@ const handleTimeSlotConfirm  = () => {
                     </div>
                   ) : (
                     <div className="text-center py-16">
-                      <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 max-w-lg mx-auto">
-                        <CalendarDays className="w-20 h-20 text-gray-300 mx-auto mb-6" />
-                        <h5 className="text-xl font-semibold text-gray-600 mb-3">
+                      <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-12 max-w-lg mx-auto border border-gray-600/30">
+                        <CalendarDays className="w-20 h-20 text-gray-500 mx-auto mb-6" />
+                        <h5 className="text-xl font-semibold text-gray-300 mb-3">
                           Detailed Itinerary Coming Soon
                         </h5>
-                        <p className="text-gray-500 mb-6 leading-relaxed">
+                        <p className="text-gray-400 mb-6 leading-relaxed">
                           We're preparing a detailed day-by-day itinerary for this{" "}
                           {tour.duration}-day experience. Please contact us for more information.
                         </p>
                         <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div className="bg-white p-3 rounded-lg border">
-                            <div className="font-semibold text-gray-900">{tour.duration}</div>
-                            <div className="text-gray-600">Days</div>
+                          <div className="bg-gray-700/50 p-3 rounded-lg border border-gray-600/30">
+                            <div className="font-semibold text-white">{tour.duration}</div>
+                            <div className="text-gray-400">Days</div>
                           </div>
-                          <div className="bg-white p-3 rounded-lg border">
-                            <div className="font-semibold text-gray-900">{tour.maxGroupSize}</div>
-                            <div className="text-gray-600">Max Group</div>
+                          <div className="bg-gray-700/50 p-3 rounded-lg border border-gray-600/30">
+                            <div className="font-semibold text-white">{tour.maxGroupSize}</div>
+                            <div className="text-gray-400">Max Group</div>
                           </div>
                         </div>
                       </div>
@@ -993,25 +992,25 @@ const handleTimeSlotConfirm  = () => {
                   {(tour.inclusions && tour.inclusions.length > 0) ||
                   (tour.exclusions && tour.exclusions.length > 0) ? (
                     <div className="space-y-8">
-                      <h4 className="font-bold text-2xl text-gray-900">What's Included & Excluded</h4>
+                      <h4 className="font-bold text-2xl text-white">What's Included & Excluded</h4>
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Inclusions */}
                         <div className="space-y-4">
-                          <h5 className="font-bold text-xl text-green-700 flex items-center">
+                          <h5 className="font-bold text-xl text-green-400 flex items-center">
                             <CheckCircle className="w-6 h-6 mr-2" />
                             {t("tourDetail.inclusions")}
                           </h5>
                           {tour.inclusions && tour.inclusions.length > 0 ? (
                             <div className="space-y-3">
                               {tour.inclusions.map((inclusion, index) => (
-                                <div key={index} className="flex items-start p-4 bg-green-50 rounded-xl border border-green-200 hover:bg-green-100 transition-colors">
-                                  <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                                  <span className="text-gray-800 leading-relaxed">{inclusion}</span>
+                                <div key={index} className="flex items-start p-4 bg-green-900/20 rounded-xl border border-green-600/30 hover:bg-green-900/30 transition-colors">
+                                  <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                                  <span className="text-gray-200 leading-relaxed">{inclusion}</span>
                                 </div>
                               ))}
                             </div>
                           ) : (
-                            <p className="text-gray-500 italic bg-gray-50 p-4 rounded-xl">
+                            <p className="text-gray-400 italic bg-gray-800/30 p-4 rounded-xl">
                               Details will be provided upon booking confirmation.
                             </p>
                           )}
@@ -1019,21 +1018,21 @@ const handleTimeSlotConfirm  = () => {
 
                         {/* Exclusions */}
                         <div className="space-y-4">
-                          <h5 className="font-bold text-xl text-red-700 flex items-center">
+                          <h5 className="font-bold text-xl text-red-400 flex items-center">
                             <XCircle className="w-6 h-6 mr-2" />
                             {t("tourDetail.exclusions")}
                           </h5>
                           {tour.exclusions && tour.exclusions.length > 0 ? (
                             <div className="space-y-3">
                               {tour.exclusions.map((exclusion, index) => (
-                                <div key={index} className="flex items-start p-4 bg-red-50 rounded-xl border border-red-200 hover:bg-red-100 transition-colors">
-                                  <XCircle className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
-                                  <span className="text-gray-800 leading-relaxed">{exclusion}</span>
+                                <div key={index} className="flex items-start p-4 bg-red-900/20 rounded-xl border border-red-600/30 hover:bg-red-900/30 transition-colors">
+                                  <XCircle className="w-5 h-5 text-red-400 mr-3 mt-0.5 flex-shrink-0" />
+                                  <span className="text-gray-200 leading-relaxed">{exclusion}</span>
                                 </div>
                               ))}
                             </div>
                           ) : (
-                            <p className="text-gray-500 italic bg-gray-50 p-4 rounded-xl">
+                            <p className="text-gray-400 italic bg-gray-800/30 p-4 rounded-xl">
                               Exclusion details will be clarified during booking.
                             </p>
                           )}
@@ -1042,20 +1041,20 @@ const handleTimeSlotConfirm  = () => {
                     </div>
                   ) : (
                     <div className="text-center py-16">
-                      <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 max-w-2xl mx-auto">
-                        <ClipboardList className="w-20 h-20 text-gray-300 mx-auto mb-6" />
-                        <h5 className="text-xl font-semibold text-gray-600 mb-3">
+                      <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-12 max-w-2xl mx-auto border border-gray-600/30">
+                        <ClipboardList className="w-20 h-20 text-gray-500 mx-auto mb-6" />
+                        <h5 className="text-xl font-semibold text-gray-300 mb-3">
                           Package Details Coming Soon
                         </h5>
-                        <p className="text-gray-500 mb-8 leading-relaxed">
+                        <p className="text-gray-400 mb-8 leading-relaxed">
                           We're finalizing the inclusions and exclusions for this tour package. 
                           Contact us directly for the most up-to-date information.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="p-6 bg-white rounded-xl border border-blue-200">
-                            <h6 className="font-semibold text-blue-900 mb-4">Tour Information</h6>
-                            <div className="space-y-2 text-sm text-blue-800">
+                          <div className="p-6 bg-gray-700/40 rounded-xl border border-gray-600/30">
+                            <h6 className="font-semibold text-orange-300 mb-4">Tour Information</h6>
+                            <div className="space-y-2 text-sm text-gray-300">
                               <div className="flex justify-between">
                                 <span>Duration:</span>
                                 <span className="font-medium">{tour.duration} days</span>
@@ -1075,9 +1074,9 @@ const handleTimeSlotConfirm  = () => {
                             </div>
                           </div>
 
-                          <div className="p-6 bg-white rounded-xl border border-green-200">
-                            <h6 className="font-semibold text-green-900 mb-4">Pricing</h6>
-                            <div className="space-y-2 text-sm text-green-800">
+                          <div className="p-6 bg-gray-700/40 rounded-xl border border-gray-600/30">
+                            <h6 className="font-semibold text-green-400 mb-4">Pricing</h6>
+                            <div className="space-y-2 text-sm text-gray-300">
                               {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
                                 <>
                                   <div className="flex justify-between">
@@ -1086,13 +1085,13 @@ const handleTimeSlotConfirm  = () => {
                                   </div>
                                   <div className="flex justify-between">
                                     <span>Discounted Price:</span>
-                                    <span className="font-bold text-lg text-red-600">
+                                    <span className="font-bold text-lg text-orange-400">
                                       {formatPrice(tour.discountedPrice, tour.currency)}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span>You Save:</span>
-                                    <span className="font-medium text-green-600">
+                                    <span className="font-medium text-green-400">
                                       {formatPrice(tour.price - tour.discountedPrice, tour.currency)}
                                     </span>
                                   </div>
@@ -1100,13 +1099,13 @@ const handleTimeSlotConfirm  = () => {
                               ) : (
                                 <div className="flex justify-between">
                                   <span>Price:</span>
-                                  <span className="font-bold text-lg">
+                                  <span className="font-bold text-lg text-orange-400">
                                     {formatPrice(tour.price, tour.currency)}
                                   </span>
                                 </div>
                               )}
-                              <div className="text-center pt-2 border-t border-green-200">
-                                <span className="text-xs text-gray-600">per person</span>
+                              <div className="text-center pt-2 border-t border-gray-600">
+                                <span className="text-xs text-gray-500">per person</span>
                               </div>
                             </div>
                           </div>
@@ -1121,20 +1120,20 @@ const handleTimeSlotConfirm  = () => {
 
           {/* Enhanced Booking Sidebar */}
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-32 animate-in fade-in-0 slide-in-from-right-4 duration-700 delay-300">
+            <div className="bg-black/40 backdrop-blur-md border border-gray-600/30 rounded-2xl shadow-lg p-8 sticky top-32 animate-in fade-in-0 slide-in-from-right-4 duration-700 delay-300">
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t("tourDetail.ready")}</h3>
-                <p className="text-gray-600">Select your preferred date and time</p>
+                <h3 className="text-2xl font-bold text-white mb-2">{t("tourDetail.ready")}</h3>
+                <p className="text-gray-400">Select your preferred date and time</p>
               </div>
 
               {/* Price Summary */}
-              <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+              <div className="mb-6 p-4 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-600/30">
                 {tour.discountedPrice && tour.discountedPrice > 0 && tour.discountedPrice < tour.price ? (
                   <div className="text-center">
-                    <div className="text-sm text-gray-500 line-through mb-1">
+                    <div className="text-sm text-gray-400 line-through mb-1">
                       {formatPrice(tour.price, tour.currency)}
                     </div>
-                    <div className="text-2xl font-bold text-red-600 mb-2">
+                    <div className="text-2xl font-bold text-orange-400 mb-2">
                       {formatPrice(tour.discountedPrice, tour.currency)}
                     </div>
                     <Badge variant="destructive" className="text-xs">
@@ -1143,18 +1142,18 @@ const handleTimeSlotConfirm  = () => {
                   </div>
                 ) : (
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-orange-400">
                       {formatPrice(tour.price, tour.currency)}
                     </div>
                   </div>
                 )}
-                <div className="text-center text-sm text-gray-600 mt-1">per person</div>
+                <div className="text-center text-sm text-gray-400 mt-1">per person</div>
               </div>
 
               <div className="space-y-4">
                 <Button
                   onClick={handleAddToCart}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 hover:scale-105"
+                  className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 hover:scale-105"
                   disabled={!user || user.role !== "user"}
                   size="lg"
                 >
@@ -1167,7 +1166,7 @@ const handleTimeSlotConfirm  = () => {
                 
                 <Button 
                   variant="outline" 
-                  className="w-full py-4 text-lg font-medium rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all duration-200"
+                  className="w-full py-4 text-lg font-medium rounded-xl border-2 border-gray-600 text-gray-300 hover:border-orange-300/50 hover:bg-orange-600/20 bg-transparent transition-all duration-200"
                   size="lg"
                 >
                   <ClipboardList className="w-5 h-5 mr-2" />
@@ -1175,18 +1174,18 @@ const handleTimeSlotConfirm  = () => {
                 </Button>
               </div>
 
-              <Separator className="my-6" />
+              <Separator className="my-6 bg-gray-700" />
               
               <div className="text-center space-y-2">
-                <div className="flex items-center justify-center gap-2 text-sm text-green-600">
+                <div className="flex items-center justify-center gap-2 text-sm text-green-400">
                   <CheckCircle className="w-4 h-4" />
                   <span className="font-medium">{t("tourDetail.bookWithConfidence")}</span>
                 </div>
-                <div className="flex items-center justify-center gap-2 text-sm text-blue-600">
+                <div className="flex items-center justify-center gap-2 text-sm text-orange-400">
                   <CheckCircle className="w-4 h-4" />
                   <span className="font-medium">{t("tourDetail.securePayments")}</span>
                 </div>
-                <div className="flex items-center justify-center gap-2 text-sm text-purple-600">
+                <div className="flex items-center justify-center gap-2 text-sm text-purple-400">
                   <CheckCircle className="w-4 h-4" />
                   <span className="font-medium">Best Price Guarantee</span>
                 </div>

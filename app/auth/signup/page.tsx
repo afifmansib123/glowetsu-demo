@@ -67,19 +67,19 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <Card className="shadow-xl border-0 backdrop-blur-sm bg-white/80 animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
+        <Card className="shadow-xl border border-gray-600/30 backdrop-blur-sm bg-black/40 animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
           <CardHeader className="text-center space-y-2">
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
               {t('auth.signup.title')}
             </CardTitle>
-            <p className="text-gray-600 text-sm">{t('auth.signup.subtitle')}</p>
+            <p className="text-gray-300 text-sm">{t('auth.signup.subtitle')}</p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="name" className="text-sm font-medium text-gray-200">
                   {t('auth.signup.name')}
                 </Label>
                 <Input
@@ -89,12 +89,12 @@ export default function SignUpPage() {
                   onChange={(e) => setName(e.target.value)}
                   required
                   placeholder={t('auth.signup.fullNamePlaceholder')}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent hover:border-emerald-300"
+                  className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent hover:border-orange-300"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="email" className="text-sm font-medium text-gray-200">
                   {t('auth.signin.email')}
                 </Label>
                 <Input
@@ -104,12 +104,12 @@ export default function SignUpPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder={t('auth.signup.emailPlaceholder')}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent hover:border-emerald-300"
+                  className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent hover:border-orange-300"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="password" className="text-sm font-medium text-gray-200">
                   {t('auth.signin.password')}
                 </Label>
                 <Input
@@ -120,17 +120,17 @@ export default function SignUpPage() {
                   required
                   placeholder={t('auth.signup.passwordPlaceholder')}
                   minLength={8}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent hover:border-emerald-300"
+                  className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent hover:border-orange-300"
                 />
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 border border-emerald-100">
-                  <p className="text-xs text-emerald-700 font-medium">
+                <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-3 border border-gray-600/30">
+                  <p className="text-xs text-orange-300 font-medium">
                     {t('auth.signup.passwordRequirements')}
                   </p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-200">
                   {t('auth.signup.confirmPassword')}
                 </Label>
                 <Input
@@ -140,13 +140,13 @@ export default function SignUpPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   placeholder={t('auth.signup.confirmPasswordPlaceholder')}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent hover:border-emerald-300"
+                  className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent hover:border-orange-300"
                 />
               </div>
 
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl mt-6" 
+                className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl mt-6" 
                 disabled={loading}
               >
                 {loading ? (
@@ -161,11 +161,11 @@ export default function SignUpPage() {
             </form>
 
             <div className="mt-8 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-300">
                 {t('auth.signup.hasAccount')}{' '}
                 <Link 
                   href="/auth/signin" 
-                  className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors duration-200 hover:underline decoration-2 underline-offset-2"
+                  className="text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 hover:underline decoration-2 underline-offset-2"
                 >
                   {t('nav.signin')}
                 </Link>
