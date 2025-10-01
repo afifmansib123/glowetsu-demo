@@ -1,195 +1,243 @@
-import { Users, Award, Globe, Heart } from 'lucide-react';
+"use client";
+
+import { useState, useEffect } from "react";
+import { Users, Award, Globe, Heart } from "lucide-react";
+
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  description: string;
+}
+
+interface AboutUsData {
+  heroTitle: string;
+  heroSubtitle: string;
+  storyTitle: string;
+  storyParagraphs: string[];
+  storyImage: string;
+  teamMembers: TeamMember[];
+}
 
 export default function AboutPage() {
+  const [aboutData, setAboutData] = useState<AboutUsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await fetch("/api/content/about-us");
+        if (response.ok) {
+          const data = await response.json();
+          setAboutData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching about data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAboutData();
+  }, []);
+
   const stats = [
-    { icon: Users, label: 'Happy Travelers', value: '50,000+' },
-    { icon: Globe, label: 'Destinations', value: '120+' },
-    { icon: Award, label: 'Awards Won', value: '25+' },
-    { icon: Heart, label: 'Years Experience', value: '15+' }
+    { icon: Users, label: "Happy Travelers", value: "50,000+" },
+    { icon: Globe, label: "Destinations", value: "120+" },
+    { icon: Award, label: "Awards Won", value: "25+" },
+    { icon: Heart, label: "Years Experience", value: "15+" },
   ];
 
-  const team = [
-    {
-      name: 'Sarah Johnson',
-      role: 'Founder & CEO',
-      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=300',
-      description: 'Passionate traveler with 20 years in the tourism industry'
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Head of Operations',
-      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300',
-      description: 'Expert in logistics and sustainable tourism practices'
-    },
-    {
-      name: 'Elena Rodriguez',
-      role: 'Cultural Experience Director',
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300',
-      description: 'Specialist in authentic cultural immersion experiences'
-    }
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600"></div>
+      </div>
+    );
+  }
 
-return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] bg-black">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/1010657/pexels-photo-1010657.jpeg?auto=compress&cs=tinysrgb&w=1200)'
-          }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-70" />
-        </div>
-        <div className="relative h-full flex items-center justify-center text-center text-white">
-          <div className="max-w-4xl px-4">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">About glowetsu</h1>
-            <p className="text-xl md:text-2xl text-gray-200">
-              Creating unforgettable memories through authentic travel experiences since 2008
+  return (
+    <>
+      {/* ADD THE STYLE TAG HERE - RIGHT AFTER THE OPENING <> */}
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
+
+        * {
+          font-family: "Orbitron", sans-serif !important;
+        }
+
+        .glowetsu-font {
+          font-family: "Orbitron", sans-serif;
+          letter-spacing: 0.3em;
+          font-weight: 700;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          letter-spacing: 0.2em;
+        }
+
+        p,
+        span,
+        div {
+          letter-spacing: 0.05em;
+        }
+
+        button {
+          letter-spacing: 0.15em;
+        }
+      `}</style>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        {/* Hero Section */}
+        <section className="relative h-[60vh] bg-black">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url(https://images.pexels.com/photos/1010657/pexels-photo-1010657.jpeg?auto=compress&cs=tinysrgb&w=1200)",
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-70" />
+          </div>
+          <div className="relative h-full flex items-center justify-center text-center text-white">
+            <div className="max-w-4xl px-4">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                {aboutData?.heroTitle || "About glowetsu"}
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-200">
+                {aboutData?.heroSubtitle ||
+                  "Creating unforgettable memories through authentic travel experiences since 2008"}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Story */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  {aboutData?.storyTitle || "Our Story"}
+                </h2>
+                <div className="space-y-4 text-gray-300">
+                  {aboutData?.storyParagraphs &&
+                  aboutData.storyParagraphs.length > 0 ? (
+                    aboutData.storyParagraphs.map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))
+                  ) : (
+                    <>
+                      <p>
+                        Founded in 2008 by a group of passionate travelers,
+                        glowetsu was born from a simple belief: travel should
+                        transform lives, not just provide vacations.
+                      </p>
+                      <p>
+                        We started as a small team organizing adventure trips
+                        for friends and family. Word spread quickly about our
+                        attention to detail, authentic experiences, and
+                        commitment to sustainable tourism.
+                      </p>
+                      <p>
+                        Today, we're proud to have guided over 50,000 travelers
+                        to more than 120 destinations worldwide, while
+                        maintaining our core values of authenticity,
+                        sustainability, and creating meaningful connections
+                        between travelers and local communities.
+                      </p>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="relative">
+                <img
+                  src={
+                    aboutData?.storyImage ||
+                    "https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  }
+                  alt="Travel adventure"
+                  className="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* Team Section */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Meet Our Team
+              </h2>
+              <p className="text-xl text-gray-300">
+                The passionate people behind your adventures
+              </p>
+            </div>
+
+            {aboutData?.teamMembers && aboutData.teamMembers.length > 0 ? (
+              <div className="grid md:grid-cols-3 gap-8">
+                {aboutData.teamMembers.map((member, index) => (
+                  <div
+                    key={index}
+                    className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <div className="relative w-48 h-48 mx-auto mb-4">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover rounded-full border-4 border-orange-500/30"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {member.name}
+                    </h3>
+                    <p className="text-orange-400 font-medium mb-3">
+                      {member.role}
+                    </p>
+                    <p className="text-gray-300">{member.description}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-400">
+                <p>No team members added yet.</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="py-16 bg-gradient-to-r text-white">
+          <div className="max-w-4xl mx-auto text-center px-4">
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to Start Your Adventure?
+            </h2>
+            <p className="text-xl mb-8">
+              Join thousands of travelers who have discovered the world with us
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div key={index} className="transform hover:scale-105 transition-transform duration-200">
-                  <IconComponent className="h-12 w-12 mx-auto mb-4" />
-                  <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                  <div className="text-lg">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Story */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-300">
-                <p>
-                  Founded in 2008 by a group of passionate travelers, glowetsu was born 
-                  from a simple belief: travel should transform lives, not just provide vacations.
-                </p>
-                <p>
-                  We started as a small team organizing adventure trips for friends and family. 
-                  Word spread quickly about our attention to detail, authentic experiences, and 
-                  commitment to sustainable tourism.
-                </p>
-                <p>
-                  Today, we're proud to have guided over 50,000 travelers to more than 120 destinations 
-                  worldwide, while maintaining our core values of authenticity, sustainability, and 
-                  creating meaningful connections between travelers and local communities.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Travel adventure"
-                className="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
-              />
+            <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+              <a
+                href="/tours"
+                className="px-6 py-3 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
+              >
+                Browse Tours
+              </a>
+              <a
+                href="/contact"
+                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-all duration-200 hover:scale-105 shadow-lg"
+              >
+                Contact Us
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Mission & Values */}
-      <section className="py-16 bg-gray-800/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">Our Mission & Values</h2>
-            <p className="text-xl text-gray-300">What drives us every day</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
-              <Globe className="h-16 w-16 text-orange-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4 text-white">Authentic Experiences</h3>
-              <p className="text-gray-300">
-                We believe in showcasing the real essence of each destination through 
-                genuine cultural exchanges and off-the-beaten-path adventures.
-              </p>
-            </div>
-            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
-              <Heart className="h-16 w-16 text-orange-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4 text-white">Sustainable Tourism</h3>
-              <p className="text-gray-300">
-                Our tours are designed to benefit local communities while preserving 
-                the natural and cultural heritage of destinations for future generations.
-              </p>
-            </div>
-            <div className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
-              <Award className="h-16 w-16 text-orange-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-4 text-white">Excellence in Service</h3>
-              <p className="text-gray-300">
-                From planning to execution, we maintain the highest standards of service 
-                to ensure every moment of your journey exceeds expectations.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">Meet Our Team</h2>
-            <p className="text-xl text-gray-300">The passionate people behind your adventures</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <div key={index} className="text-center bg-black/40 backdrop-blur-md p-8 rounded-xl border border-gray-600/30 hover:border-orange-300/50 transition-all duration-300 transform hover:scale-105">
-                <div className="relative w-48 h-48 mx-auto mb-4">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover rounded-full border-4 border-orange-500/30"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{member.name}</h3>
-                <p className="text-orange-400 font-medium mb-3">{member.role}</p>
-                <p className="text-gray-300">{member.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-4xl font-bold mb-6">Ready to Start Your Adventure?</h2>
-          <p className="text-xl mb-8">
-            Join thousands of travelers who have discovered the world with us
-          </p>
-          <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
-            <a
-              href="/tours"
-              className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-lg"
-            >
-              Browse Tours
-            </a>
-            <a
-              href="/contact"
-              className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-all duration-200 hover:scale-105 shadow-lg"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

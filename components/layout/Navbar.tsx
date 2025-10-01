@@ -99,7 +99,7 @@ export default function Navbar() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="bg-transparent text-white hover:bg-amber-700/20 hover:text-amber-300 border border-gray-700 hover:border-amber-300/50 px-4 py-2 rounded-none font-light tracking-wide uppercase transition-all duration-300">
+                  <Button className="px-5 py-2.5 border border-gray-300 text-white bg-transparent hover:bg-gray-800 rounded-md transition-all duration-200 font-medium">
                     <User className="h-4 w-4 mr-2" />
                     {user.name || user.email}
                   </Button>
@@ -201,13 +201,13 @@ export default function Navbar() {
             ) : (
               <div className="space-x-3">
                 <Button
-                  className="bg-transparent text-white hover:text-orange-600 border border-white/30 hover:border-orange-300/80 px-4 py-2 rounded-none font-light tracking-wide uppercase text-sm transition-all duration-300"
+                 className="px-5 py-2.5 border border-gray-300 text-white bg-transparent hover:bg-gray-800 rounded-md transition-all duration-200 font-medium"
                   asChild
                 >
                   <Link href="/auth/signin">{t("nav.signin")}</Link>
                 </Button>
                 <Button
-                  className="bg-transparent text-white hover:bg-orange-600 hover:text-white border border-orange-600 px-4 py-2 rounded-none font-light tracking-wide uppercase text-sm transition-all duration-300"
+                  className="px-5 py-2.5 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
                   asChild
                 >
                   <Link href="/auth/signup">{t("nav.signup")}</Link>
@@ -219,7 +219,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
-              className="bg-transparent text-white hover:bg-amber-700/20 hover:text-amber-300 border border-gray-700 hover:border-amber-300/50 p-2 rounded-none transition-all duration-300"
+              className="p-2.5 border border-gray-600 text-white bg-transparent hover:bg-gray-800 rounded-md transition-all duration-200"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (

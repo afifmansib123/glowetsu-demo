@@ -11,6 +11,9 @@ import {
   Sparkles,
   Zap,
   Clock,
+  Award,
+  Heart,
+  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -39,6 +42,30 @@ interface Tour {
   isFeatured: boolean;
 }
 
+// new for admin carasoel etc
+
+interface CarouselSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+  order: number;
+}
+
+interface WhyChooseFeature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface WhyChooseData {
+  mainTitle: string;
+  mainDescription: string;
+  image: string;
+  features: WhyChooseFeature[];
+}
+
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -46,49 +73,38 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
 
-  const carouselImages = [
-    {
-      src: "https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      title: t("home.hero.title1"),
-      description: t("home.hero.desc1"),
-    },
-    {
-      src: "https://images.pexels.com/photos/2373201/pexels-photo-2373201.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      title: t("home.hero.title2"),
-      description: t("home.hero.desc2"),
-    },
-    {
-      src: "https://images.pexels.com/photos/1007427/pexels-photo-1007427.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      title: t("home.hero.title3"),
-      description: t("home.hero.desc3"),
-    },
-  ];
+  const [carouselSlides, setCarouselSlides] = useState<CarouselSlide[]>([]);
+  const [whyChooseData, setWhyChooseData] = useState<WhyChooseData | null>(
+    null
+  );
 
-  // Fetch featured tours from API
   useEffect(() => {
-    const fetchFeaturedTours = async () => {
+    const fetchCarousel = async () => {
       try {
-        setLoading(true);
-        const response = await fetch(
-          "/api/tour-packages?populate=true&isActive=true&isFeatured=true&limit=3"
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch featured tours");
+        const response = await fetch("/api/content/carousel");
+        if (response.ok) {
+          const data = await response.json();
+          setCarouselSlides(data.slides || []);
         }
-
-        const data = await response.json();
-        setFeaturedTours(data.tourPackages || []);
       } catch (error) {
-        console.error("Error fetching featured tours:", error);
-        // Fallback to empty array or demo data if needed
-        setFeaturedTours([]);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching carousel:", error);
       }
     };
 
-    fetchFeaturedTours();
+    const fetchWhyChoose = async () => {
+      try {
+        const response = await fetch("/api/content/why-choose-us");
+        if (response.ok) {
+          const data = await response.json();
+          setWhyChooseData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching why choose us:", error);
+      }
+    };
+
+    fetchCarousel();
+    fetchWhyChoose();
   }, []);
 
   // Helper function to get difficulty color
@@ -169,56 +185,100 @@ export default function HomePage() {
     },
   };
 
-  const slideVariants = {
-    enter: {
-      x: 1000,
-      opacity: 0,
-      scale: 0.8,
+const slideVariants = {
+  enter: {
+    opacity: 0,
+  },
+  center: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+      ease: "easeInOut",
     },
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-      },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
     },
-    exit: {
-      x: -1000,
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-  };
+  },
+};
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [carouselSlides.length]);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
   };
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
     );
   };
 
+  useEffect(() => {
+  const fetchFeaturedTours = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/tour-packages?populate=true&isFeatured=true&isActive=true");
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch featured tours");
+      }
+      
+      const data = await response.json();
+      setFeaturedTours(data.tourPackages || []);
+    } catch (error) {
+      console.error("Error fetching featured tours:", error);
+      setFeaturedTours([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchFeaturedTours();
+}, []);
+
+
   return (
+    <>
+      {/* ADD THE STYLE TAG HERE - RIGHT AFTER THE OPENING <> */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+          font-family: 'Orbitron', sans-serif !important;
+        }
+        
+        .glowetsu-font {
+          font-family: 'Orbitron', sans-serif;
+          letter-spacing: 0.3em;
+          font-weight: 700;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+          letter-spacing: 0.2em;
+        }
+        
+        p, span, div {
+          letter-spacing: 0.05em;
+        }
+        
+        button {
+          letter-spacing: 0.15em;
+        }
+      `}</style>
+      
     <motion.div
       className="min-h-screen overflow-hidden bg-black"
       initial="hidden"
@@ -239,7 +299,9 @@ export default function HomePage() {
             <div
               className="h-full bg-cover bg-center"
               style={{
-                backgroundImage: `url(${carouselImages[currentSlide].src})`,
+                backgroundImage: `url(${
+                  carouselSlides[currentSlide]?.image || ""
+                })`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-gray-900/60" />
@@ -256,7 +318,7 @@ export default function HomePage() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
                   >
-                    {carouselImages[currentSlide].title}
+                    {carouselSlides[currentSlide]?.title || ""}
                   </motion.h1>
                   <motion.p
                     className="text-xl md:text-2xl mb-8 text-white/90"
@@ -264,7 +326,7 @@ export default function HomePage() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
                   >
-                    {carouselImages[currentSlide].description}
+                    {carouselSlides[currentSlide]?.subtitle || ""}
                   </motion.p>
                   <motion.div
                     whileHover={{ scale: 1.1 }}
@@ -276,7 +338,7 @@ export default function HomePage() {
                     <Button
                       asChild
                       size="lg"
-                      className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-lg px-8 py-4 rounded-none border border-amber-500 shadow-2xl font-light tracking-widest uppercase transition-all duration-300 hover:shadow-amber-500/25"
+                      className="px-6 py-3 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 text-base font-medium"
                     >
                       <Link
                         href="/tours"
@@ -313,7 +375,7 @@ export default function HomePage() {
         </motion.button>
 
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {carouselImages.map((_, index) => (
+          {carouselSlides.map((_, index) => (
             <motion.button
               key={index}
               onClick={() => setCurrentSlide(index)}
@@ -532,7 +594,7 @@ export default function HomePage() {
                       >
                         <Button
                           asChild
-                          className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 rounded-full shadow-lg hover:shadow-xl"
+                          className="w-full px-5 py-2.5 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
                         >
                           <Link
                             href={`/tours/${tour._id}`}
@@ -567,7 +629,7 @@ export default function HomePage() {
                 </p>
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="px-6 py-2.5 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
                 >
                   <Link href="/tours">Browse All Tours</Link>
                 </Button>
@@ -597,7 +659,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 100 }}
               >
-                {t("home.company.title")}
+                {whyChooseData?.mainTitle || t("home.company.title")}
               </motion.h2>
               <motion.p
                 className="text-lg text-gray-300 mb-6"
@@ -606,53 +668,54 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                {t("home.company.desc")}
+                {whyChooseData?.mainDescription || t("home.company.desc")}
               </motion.p>
               <div className="space-y-6">
-                {[
-                  {
-                    icon: Users,
-                    title: t("home.features.expertGuides"),
-                    desc: t("home.features.expertGuidesDesc"),
-                  },
-                  {
-                    icon: Star,
-                    title: t("home.features.premiumQuality"),
-                    desc: t("home.features.premiumQualityDesc"),
-                  },
-                  {
-                    icon: MapPin,
-                    title: t("home.features.uniqueDestinations"),
-                    desc: t("home.features.uniqueDestinationsDesc"),
-                  },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start group"
-                    initial={{ x: -50, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    whileHover={{ x: 10 }}
-                  >
+                {whyChooseData?.features.map((feature, index) => {
+                  // Import icons at the top of the file if not already there
+                  const IconMap: any = {
+                    Users,
+                    Star,
+                    MapPin,
+                    Award,
+                    Heart,
+                    Globe,
+                    Shield: Star, // Fallback if Shield not imported
+                    Zap,
+                    TrendingUp: Star, // Fallback
+                    Clock,
+                  };
+                  const IconComponent = IconMap[feature.icon] || Users;
+
+                  return (
                     <motion.div
-                      className="bg-gray-800 p-2 rounded-lg mr-4"
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                      key={index}
+                      className="flex items-start group"
+                      initial={{ x: -50, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      whileHover={{ x: 10 }}
                     >
-                      <item.icon className="h-6 w-6 text-orange-600" />
-                    </motion.div>
-                    <div>
-                      <motion.h3
-                        className="font-semibold text-white"
-                        whileHover={{ color: "#2563eb" }}
+                      <motion.div
+                        className=" p-2 rounded-lg mr-4"
+                        whileHover={{ scale: 1.2, rotate: 10 }}
+                        transition={{ type: "spring", stiffness: 300 }}
                       >
-                        {item.title}
-                      </motion.h3>
-                      <p className="text-gray-300">{item.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
+                        <IconComponent className="h-6 w-6 text-orange-600" />
+                      </motion.div>
+                      <div>
+                        <motion.h3
+                          className="font-semibold text-white"
+                          whileHover={{ color: "#2563eb" }}
+                        >
+                          {feature.title}
+                        </motion.h3>
+                        <p className="text-gray-300">{feature.description}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
             <motion.div
@@ -726,7 +789,7 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white border-0 rounded-full px-8 py-3 shadow-2xl"
+                className="px-6 py-3 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
               >
                 <Link href="/tours" className="inline-flex items-center gap-2">
                   {t("home.cta.browse")}
@@ -741,7 +804,7 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-black px-8 py-4 rounded-none font-light tracking-widest uppercase transition-all duration-300 shadow-2xl"
+                className="px-6 py-3 border border-white text-white bg-transparent hover:bg-white hover:text-black rounded-md transition-all duration-200 font-medium"
               >
                 <Link href="/about" className="inline-flex items-center gap-2">
                   <Users className="h-5 w-5" />
@@ -753,5 +816,6 @@ export default function HomePage() {
         </div>
       </motion.section>
     </motion.div>
+    </>
   );
 }

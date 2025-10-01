@@ -20,7 +20,7 @@ export default function LanguageSwitcher() {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="flex items-center space-x-1 bg-transparent text-white hover:bg-orange-600/20 hover:text-orange-300 border border-gray-700 hover:border-orange-300/50 px-3 py-2 rounded-none font-light tracking-wide transition-all duration-300"
+          className="flex items-center space-x-1 px-5 py-2.5 border border-gray-300 text-white bg-transparent hover:bg-gray-800 rounded-md transition-all duration-200 font-medium"
         >
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{languageFlags[locale]}</span>

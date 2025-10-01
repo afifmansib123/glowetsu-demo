@@ -287,13 +287,27 @@ const translations = {
     "tourDetail.day": "Day",
 
     "home.features.expertGuides": "Expert Local Guides",
-"home.features.expertGuidesDesc": "Our passionate local guides share insider knowledge and hidden gems",
+    "home.features.expertGuidesDesc":
+      "Our passionate local guides share insider knowledge and hidden gems",
 
-"home.features.premiumQuality": "Premium Quality",
-"home.features.premiumQualityDesc": "Carefully selected accommodations and transportation for your comfort",
+    "home.features.premiumQuality": "Premium Quality",
+    "home.features.premiumQualityDesc":
+      "Carefully selected accommodations and transportation for your comfort",
 
-"home.features.uniqueDestinations": "Unique Destinations", 
-"home.features.uniqueDestinationsDesc": "From popular attractions to off-the-beaten-path adventures"
+    "home.features.uniqueDestinations": "Unique Destinations",
+    "home.features.uniqueDestinationsDesc":
+      "From popular attractions to off-the-beaten-path adventures",
+
+    "admin.content.editCarousel": "Edit Header Carousel",
+    "admin.content.editCarouselDesc":
+      "Manage homepage hero carousel images and content",
+    "admin.content.editWhyChoose": "Edit Why Choose Us",
+    "admin.content.editWhyChooseDesc":
+      "Update Why Choose Glowetsu section content",
+    "admin.content.editAbout": "Edit About Us",
+    "admin.content.editAboutDesc":
+      "Manage About Us page content and information",
+    "admin.content.management": "Content Management",
   },
   zh: {
     // Navigation
@@ -558,6 +572,14 @@ const translations = {
       "精心挑选的住宿和交通，为您提供舒适体验",
     "home.features.uniqueDestinations": "独特目的地",
     "home.features.uniqueDestinationsDesc": "从热门景点到人迹罕至的冒险之旅",
+
+    "admin.content.editCarousel": "编辑顶部轮播",
+    "admin.content.editCarouselDesc": "管理首页英雄轮播图片和内容",
+    "admin.content.editWhyChoose": "编辑为什么选择我们",
+    "admin.content.editWhyChooseDesc": "更新为什么选择Glowetsu部分内容",
+    "admin.content.editAbout": "编辑关于我们",
+    "admin.content.editAboutDesc": "管理关于我们页面内容和信息",
+    "admin.content.management": "内容管理",
   },
   ja: {
     // Navigation
@@ -829,7 +851,19 @@ const translations = {
     "home.features.premiumQualityDesc":
       "快適さのために厳選された宿泊施設と交通手段",
     "home.features.uniqueDestinations": "ユニークな目的地",
-    "home.features.uniqueDestinationsDesc": "人気スポットから人里離れた冒険まで",
+    "home.features.uniqueDestinationsDesc":
+      "人気スポットから人里離れた冒険まで",
+
+    "admin.content.editCarousel": "ヘッダーカルーセル編集",
+    "admin.content.editCarouselDesc":
+      "ホームページヒーローカルーセルの画像とコンテンツを管理",
+    "admin.content.editWhyChoose": "私たちを選ぶ理由を編集",
+    "admin.content.editWhyChooseDesc":
+      "Glowetsuを選ぶ理由セクションのコンテンツを更新",
+    "admin.content.editAbout": "私たちについてを編集",
+    "admin.content.editAboutDesc":
+      "私たちについてページのコンテンツと情報を管理",
+    "admin.content.management": "コンテンツ管理",
   },
 };
 

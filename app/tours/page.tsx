@@ -172,6 +172,33 @@ export default function ToursPage() {
   }
 
 return (
+      <>
+      {/* ADD THE STYLE TAG HERE - RIGHT AFTER THE OPENING <> */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+          font-family: 'Orbitron', sans-serif !important;
+        }
+        
+        .glowetsu-font {
+          font-family: 'Orbitron', sans-serif;
+          letter-spacing: 0.3em;
+          font-weight: 700;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+          letter-spacing: 0.2em;
+        }
+        
+        p, span, div {
+          letter-spacing: 0.05em;
+        }
+        
+        button {
+          letter-spacing: 0.15em;
+        }
+      `}</style>
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Header */}
       <div className="bg-gradient-to-r from-gray-900 to-black text-white">
@@ -323,7 +350,7 @@ return (
                   <Button 
                     asChild 
                     variant="outline" 
-                    className="flex-1 border-orange-300/30 text-white hover:bg-orange-600/20 hover:border-orange-300 hover:text-white transition-all duration-200 bg-transparent"
+                    className="w-full px-5 py-2.5 bg-orange-600 text-white hover:bg-orange-700 rounded-md transition-all duration-200 font-medium"
                   >
                     <Link href={`/tours/${tour._id}`}>
                       {t("tours.viewDetails") || "View Details"}
@@ -360,5 +387,6 @@ return (
         )}
       </div>
     </div>
+    </>
   );
 }
