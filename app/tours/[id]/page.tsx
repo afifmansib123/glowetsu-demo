@@ -1064,10 +1064,6 @@ return (
                                 <span className="font-medium">{tour.maxGroupSize} people</span>
                               </div>
                               <div className="flex justify-between">
-                                <span>Difficulty:</span>
-                                <span className="font-medium capitalize">{tour.difficulty}</span>
-                              </div>
-                              <div className="flex justify-between">
                                 <span>Location:</span>
                                 <span className="font-medium">{tour.location}</span>
                               </div>

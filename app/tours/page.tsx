@@ -312,17 +312,6 @@ return (
                     </span>
                   </div>
                 </div>
-                
-                {/* Difficulty Badge */}
-                <div className="mb-3">
-                  <Badge 
-                    variant="outline" 
-                    className={`text-xs font-medium ${getDifficultyColor(tour.difficulty)}`}
-                  >
-                    {tour.difficulty}
-                  </Badge>
-                </div>
-                
                 <p className="text-gray-300 text-sm mb-4 line-clamp-2 flex-grow leading-relaxed">
                   {tour.shortDescription || tour.description}
                 </p>
